@@ -14,6 +14,7 @@ public class HomeController {
     @FXML
     public void onLogOutButtonClick(ActionEvent event) throws IOException {
         SignUpController.showLogin(event);
+        System.out.println("Test");
     }
 
     public void onProfileClick(ActionEvent event) throws IOException {
