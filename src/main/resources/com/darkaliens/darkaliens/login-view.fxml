@@ -27,7 +27,7 @@
                 </VBox.margin>
             </Label>
             <Label text="Log in" textFill="WHITE">
-                <font>˚
+                <font>
                     <Font name="System Bold" size="30.0" />
                 </font>
             </Label>
