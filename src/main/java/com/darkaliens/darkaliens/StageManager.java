@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class StageManager {
     public static void setScene(String sceneName, String stageTile) {
@@ -12,7 +13,9 @@ public class StageManager {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(sceneName));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             Stage stage = MainApplication.stage;
+            String css = Objects.requireNonNull(MainApplication.class.getResource("global.css")).toExternalForm();
 
+            scene.getStylesheets().add(css);
             stage.setTitle(stageTile);
             stage.setScene(scene);
             stage.show();
