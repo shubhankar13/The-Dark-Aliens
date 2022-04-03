@@ -10,7 +10,7 @@ public class StageManager {
     public static void setScene(String sceneName, String stageTile) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(sceneName));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
+            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             Stage stage = MainApplication.stage;
 
             stage.setTitle(stageTile);
