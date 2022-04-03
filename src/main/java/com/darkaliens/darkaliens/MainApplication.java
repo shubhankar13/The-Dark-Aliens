@@ -10,7 +10,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) {
         MainApplication.stage = stage;
-        SceneUtils.goToLogin();
+        StageManager.goToLoginScene();
     }
 
     public static void main(String[] args) {

@@ -6,6 +6,6 @@ public class HomeController {
 
     @FXML
     public void onProfileButtonClick() {
-        SceneUtils.goToScene("profile-view.fxml", "Profile");
+        StageManager.setScene("profile-view.fxml", "Profile");
     }
 }

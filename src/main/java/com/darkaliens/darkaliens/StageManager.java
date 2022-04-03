@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SceneUtils {
-    public static void goToScene(String sceneName, String stageTile) {
+public class StageManager {
+    public static void setScene(String sceneName, String stageTile) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(sceneName));
             Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
@@ -22,7 +22,7 @@ public class SceneUtils {
         }
     }
 
-    public static void goToLogin() {
-        SceneUtils.goToScene("login-view.fxml", "Log in");
+    public static void goToLoginScene() {
+        StageManager.setScene("login-view.fxml", "Log in");
     }
 }

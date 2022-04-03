@@ -3,10 +3,10 @@ package com.darkaliens.darkaliens;
 public class ProfileController {
 
     public void onLogOutButtonClick() {
-        SceneUtils.goToLogin();
+        StageManager.goToLoginScene();
     }
 
     public void goBackToHomeScene() {
-        SceneUtils.goToScene("home-view.fxml", "Home");
+        StageManager.setScene("home-view.fxml", "Home");
     }
 }
