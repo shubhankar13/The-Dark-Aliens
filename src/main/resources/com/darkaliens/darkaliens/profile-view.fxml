@@ -15,7 +15,7 @@
    <children>
       <Button alignment="CENTER" mnemonicParsing="false" onAction="#goBackToHomeScene" style="-fx-background-color: transparent;" text="Go Back" textFill="#77a7ff" />
       <Pane maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #151922; -fx-background-radius: 75;" />
-      <Label text="Hai there !" textFill="#f8f5f5">
+      <Label text="Hi there !" textFill="#f8f5f5">
          <font>
             <Font size="18.0" />
          </font>
