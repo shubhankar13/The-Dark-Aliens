@@ -68,6 +68,11 @@
                     <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
                 </padding>
             </PasswordField>
+            <PasswordField promptText="Confirm Password" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field">
+                <padding>
+                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                </padding>
+            </PasswordField>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignupButtonClick" style="-fx-background-color: #4687ff; -fx-cursor: hand;" text="Continue" textFill="WHITE">
                 <VBox.margin>
                     <Insets top="10.0" />
