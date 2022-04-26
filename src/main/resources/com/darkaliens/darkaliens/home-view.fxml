@@ -19,7 +19,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" maxWidth="1096.0" VBox.vgrow="NEVER">
                <children>
-                  <Label text="One more step towards your dream" textFill="WHITE" wrapText="true">
+                  <Label text="One more step towards your dream destination" textFill="WHITE" wrapText="true">
                      <font>
                         <Font size="33.0" />
                      </font>
