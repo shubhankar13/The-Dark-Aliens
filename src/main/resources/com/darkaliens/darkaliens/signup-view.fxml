@@ -1,89 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<VBox alignment="CENTER" minHeight="600.0" minWidth="600.0" prefHeight="851.0" prefWidth="749.0" spacing="20.0" style="-fx-background-color: #0e1016;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.darkaliens.darkaliens.SignUpController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minHeight="600.0" minWidth="600.0" prefHeight="851.0"
+      prefWidth="749.0"
+      spacing="20.0" style="-fx-background-color: #0e1016;" xmlns="http://javafx.com/javafx/17"
+      fx:controller="com.darkaliens.darkaliens.SignUpController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <VBox alignment="CENTER" maxWidth="400.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #151922; -fx-background-radius: 10;" VBox.vgrow="NEVER">
+    <VBox alignment="CENTER" maxWidth="400.0" prefWidth="100.0" spacing="10.0"
+          style="-fx-background-color: #151922; -fx-background-radius: 10;" VBox.vgrow="NEVER">
         <padding>
-            <Insets bottom="24.0" left="24.0" right="24.0" top="32.0" />
+            <Insets bottom="24.0" left="24.0" right="24.0" top="32.0"/>
         </padding>
         <children>
             <Label text="Udaan" textFill="#7f8183">
                 <font>
-                    <Font size="18.0" />
+                    <Font size="18.0"/>
                 </font>
                 <VBox.margin>
-                    <Insets bottom="30.0" />
+                    <Insets bottom="30.0"/>
                 </VBox.margin>
             </Label>
             <Label text="Sign up" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="30.0" />
+                    <Font name="System Bold" size="30.0"/>
                 </font>
             </Label>
             <HBox alignment="CENTER" VBox.vgrow="NEVER">
                 <children>
                     <Label text="Have an account?" textFill="#8a8c91" HBox.hgrow="NEVER">
                         <HBox.margin>
-                            <Insets />
+                            <Insets/>
                         </HBox.margin>
                     </Label>
-                    <Button mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Log in" textFill="#77a7ff" />
+                    <Button mnemonicParsing="false" onAction="#onLoginButtonClick"
+                            style="-fx-background-color: transparent; -fx-cursor: hand;" text="Log in"
+                            textFill="#77a7ff"/>
                 </children>
                 <padding>
-                    <Insets bottom="10.0" />
+                    <Insets bottom="10.0"/>
                 </padding>
             </HBox>
-         <HBox spacing="15.0">
-            <children>
-                  <TextField promptText="First name" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field" HBox.hgrow="ALWAYS">
-                      <padding>
-                          <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-                      </padding>
-                  </TextField>
-                  <TextField promptText="Last name" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field" HBox.hgrow="ALWAYS">
-                      <padding>
-                          <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-                      </padding>
-                  </TextField>
-            </children>
-         </HBox>
-            <TextField promptText="Email address" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field">
+            <HBox spacing="15.0">
+                <children>
+                    <TextField fx:id="firstName" promptText="First name"
+                               style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;"
+                               styleClass="authentication-text-field" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                        </padding>
+                    </TextField>
+                    <TextField fx:id="lastName" promptText="Last name"
+                               style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;"
+                               styleClass="authentication-text-field" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+                        </padding>
+                    </TextField>
+                </children>
+            </HBox>
+            <TextField fx:id="email" promptText="Email address"
+                       style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;"
+                       styleClass="authentication-text-field">
                 <padding>
-                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
                 </padding>
             </TextField>
-            <PasswordField promptText="Password" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field">
+            <PasswordField fx:id="password" promptText="Password"
+                           style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;"
+                           styleClass="authentication-text-field">
                 <padding>
-                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
                 </padding>
             </PasswordField>
-            <PasswordField promptText="Confirm Password" style="-fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-color: #44474e; -fx-text-fill: white;" styleClass="authentication-text-field">
-                <padding>
-                    <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
-                </padding>
-            </PasswordField>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignupButtonClick" style="-fx-background-color: #4687ff; -fx-cursor: hand;" text="Continue" textFill="WHITE">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignupButtonClick"
+                    style="-fx-background-color: #4687ff; -fx-cursor: hand;" text="Continue" textFill="WHITE">
                 <VBox.margin>
-                    <Insets top="10.0" />
+                    <Insets top="10.0"/>
                 </VBox.margin>
                 <padding>
-                    <Insets bottom="12.0" left="28.0" right="28.0" top="12.0" />
+                    <Insets bottom="12.0" left="28.0" right="28.0" top="12.0"/>
                 </padding>
             </Button>
         </children>
         <VBox.margin>
-            <Insets />
+            <Insets/>
         </VBox.margin>
     </VBox>
 </VBox>

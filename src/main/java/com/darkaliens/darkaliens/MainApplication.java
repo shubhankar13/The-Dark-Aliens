@@ -5,15 +5,18 @@ import javafx.stage.Stage;
 
 public class MainApplication extends Application {
 
-    public static Stage stage;
+  public static Stage stage;
 
-    @Override
-    public void start(Stage stage) {
-        MainApplication.stage = stage;
-        StageManager.goToLoginScene();
-    }
+  public static void main(String[] args) {
+    launch();
+  }
 
-    public static void main(String[] args) {
-        launch();
-    }
+  @Override
+  public void start(Stage primaryStage) {
+    Firebase.init();
+
+    MainApplication.stage = primaryStage;
+    SignUpController.showScene();
+//    LoginController.showScene();
+  }
 }
