@@ -1,6 +1,7 @@
 package com.darkaliens.darkaliens;
 
 import com.darkaliens.auth.Firebase;
+import com.darkaliens.darkaliens.Home.HomeController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
