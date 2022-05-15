@@ -17,6 +17,5 @@ public class MainApplication extends Application {
 
     MainApplication.stage = primaryStage;
     SignUpController.showScene();
-//    LoginController.showScene();
   }
 }
