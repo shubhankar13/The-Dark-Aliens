@@ -59,6 +59,7 @@ public class SignUpController {
     String password = passwordField.getText();
     String signUpResponse = Firebase.signUp(firstName, lastName, email, password);
 
+
     switch (signUpResponse) {
       case "INCOMPLETE_FORM" -> {
         authSceneContainer.showError("All fields are required.");
