@@ -13,6 +13,9 @@ module com.darkaliens.darkaliens {
   requires org.apache.httpcomponents.httpclient;
   requires org.apache.httpcomponents.httpcore;
   requires org.json;
+  requires org.mongodb.bson;
+  requires org.mongodb.driver.sync.client;
+  requires org.mongodb.driver.core;
 
   opens com.darkaliens.darkaliens to javafx.fxml;
   exports com.darkaliens.darkaliens;
