@@ -1,5 +1,6 @@
-package com.darkaliens.darkaliens;
+package com.darkaliens.auth;
 
+import com.darkaliens.darkaliens.SystemProperties;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -44,7 +45,11 @@ public class Firebase {
     FirebaseApp.initializeApp(options);
   }
 
-  public static void signUp(String firstName, String lastName, String email, String password) {
+  public static String signUp(String firstName, String lastName, String email, String password) {
+    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+      return "INCOMPLETE_FORM";
+    }
+
     HttpPost post = new HttpPost("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + apiKey);
 
     setPostParameters(email, password, post);
@@ -54,13 +59,27 @@ public class Firebase {
 
       String jsonString = EntityUtils.toString(response.getEntity());
       JSONObject jsonObject = new JSONObject(jsonString);
+      String errorKeyName = "error";
+      boolean hasError = jsonObject.has(errorKeyName);
 
-      System.out.println(jsonString);
-      System.out.println(jsonObject.getJSONObject("error").get("message"));
+      if (hasError) {
+        String errorMessage = (String) jsonObject.getJSONObject(errorKeyName).get("message");
+        if (errorMessage.contains("WEAK_PASSWORD")) {
+          return "WEAK_PASSWORD";
+        }
+        return errorMessage;
+      }
 
+      SystemProperties systemProperties = new SystemProperties();
+      String token = jsonObject.getString("idToken");
+      String uid = jsonObject.getString("localId");
+      String refreshToken = jsonObject.getString("refreshToken");
+
+      systemProperties.setProperties(token, uid, refreshToken);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+    return firstName;
   }
 
   public static void login(String email, String password) {
@@ -72,7 +91,6 @@ public class Firebase {
          CloseableHttpResponse response = httpClient.execute(post)) {
 
       System.out.println(EntityUtils.toString(response.getEntity()));
-
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

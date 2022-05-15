@@ -2,10 +2,13 @@ package com.darkaliens.darkaliens;
 
 import com.darkaliens.auth.AuthSceneContainer;
 import com.darkaliens.auth.AuthTextField;
+import com.darkaliens.auth.Firebase;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -15,10 +18,13 @@ import java.util.Collection;
 
 public class SignUpController {
 
-  public static void showScene() {
-    AuthTextField firstName = new AuthTextField("First name");
-    AuthTextField lastName = new AuthTextField("Last name");
+  private static final AuthTextField firstNameField = new AuthTextField("First name");
+  private static final AuthTextField lastNameField = new AuthTextField("Last name");
+  private static AuthSceneContainer authSceneContainer;
 
+  public static void showScene() {
+    firstNameField.setText("Woyong");
+    lastNameField.setText("Egbara");
     HBox loginContainer = new HBox();
     Label haveAnAccount = new Label("Have an account?");
     Button loginButton = new Button("Login");
@@ -32,14 +38,41 @@ public class SignUpController {
     loginContainer.getChildren().add(haveAnAccount);
     loginContainer.getChildren().add(loginButton);
 
-    TextField email = new AuthTextField("Email");
-
     Collection<Node> list = new ArrayList<>();
     list.add(loginContainer);
-    list.add(firstName);
-    list.add(lastName);
-    list.add(email);
+    list.add(firstNameField);
+    list.add(lastNameField);
 
-    new AuthSceneContainer("Sign up", list);
+    authSceneContainer = new AuthSceneContainer("Sign up", list);
+    Button continueButton = authSceneContainer.getAuthContinueButton();
+    continueButton.setOnAction(SignUpController::signUp);
+  }
+
+  public static void signUp(ActionEvent eventEventHandler) {
+    authSceneContainer.toggleErrorMessage(false);
+
+    PasswordField passwordField = authSceneContainer.getPasswordField();
+    TextField emailField = authSceneContainer.getEmail();
+    String firstName = firstNameField.getText();
+    String lastName = lastNameField.getText();
+    String email = emailField.getText();
+    String password = passwordField.getText();
+    String signUpResponse = Firebase.signUp(firstName, lastName, email, password);
+
+
+    switch (signUpResponse) {
+      case "INCOMPLETE_FORM" -> {
+        authSceneContainer.showError("All fields are required.");
+      }
+      case "WEAK_PASSWORD" -> {
+        authSceneContainer.showError("Your password is missing or is too weak.", passwordField);
+      }
+      case "INVALID_EMAIL" -> {
+        authSceneContainer.showError("Your email is missing or is incorrect.", emailField);
+      }
+      case "EMAIL_EXISTS" -> {
+        authSceneContainer.showError("The email provided already exists.", emailField);
+      }
+    }
   }
 }

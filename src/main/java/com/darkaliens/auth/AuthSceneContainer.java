@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,8 +17,13 @@ import javafx.stage.Stage;
 import java.util.Collection;
 
 public class AuthSceneContainer extends VBox {
+
+  public static final PasswordField passwordField = new AuthPasswordField();
+  public static final AuthContinueButton authContinueButton = new AuthContinueButton();
+  public static final TextField email = new AuthTextField("Email");
+  public static final Label errorMessage = new Label();
   private static final Stage primaryStage = MainApplication.stage;
-  private final VBox containerVBox = new VBox();
+  static VBox containerVBox = new VBox();
 
   public AuthSceneContainer(String sceneTitle, Collection<Node> others) {
     setAlignment(Pos.CENTER);
@@ -32,8 +38,14 @@ public class AuthSceneContainer extends VBox {
 
     Label projectName = new Label("UDAAN");
     projectName.setTextFill(Color.web("#7f8183"));
-    projectName.setPadding(new Insets(0, 0, 30, 0));
+    projectName.setPadding(new Insets(0, 0, 20, 0));
     containerVBox.getChildren().add(projectName);
+
+    errorMessage.setMaxWidth(Double.MAX_VALUE);
+    toggleErrorMessage(false);
+    errorMessage.setPadding(new Insets(10));
+    errorMessage.setStyle("-fx-background-color: #a18282; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(246,79,100,.4);");
+    containerVBox.getChildren().add(errorMessage);
 
     Label sceneTitleLabel = new Label(sceneTitle);
     sceneTitleLabel.setTextFill(Color.web("white"));
@@ -42,10 +54,11 @@ public class AuthSceneContainer extends VBox {
 
     containerVBox.getChildren().addAll(others);
 
-    PasswordField passwordField = new AuthPasswordField();
+    email.setText("woyongegbara@yahoo.com");
+
+    containerVBox.getChildren().add(email);
     containerVBox.getChildren().add(passwordField);
 
-    AuthContinueButton authContinueButton = new AuthContinueButton();
     VBox.setMargin(authContinueButton, new Insets(10, 0, 0, 0));
     containerVBox.getChildren().add(authContinueButton);
 
@@ -55,7 +68,31 @@ public class AuthSceneContainer extends VBox {
     primaryStage.centerOnScreen();
   }
 
-  public VBox getContainerVBox() {
-    return containerVBox;
+  public void showError(String error, Node field) {
+    errorMessage.setText(error);
+    toggleErrorMessage(true);
+    field.setStyle(field.getStyle() + "-fx-border-color: rgba(246,79,100,.4);");
+  }
+
+  public void toggleErrorMessage(Boolean shouldShowError) {
+    errorMessage.setVisible(shouldShowError);
+    errorMessage.setManaged(shouldShowError);
+  }
+
+  public void showError(String error) {
+    errorMessage.setText(error);
+    toggleErrorMessage(true);
+  }
+
+  public PasswordField getPasswordField() {
+    return passwordField;
+  }
+
+  public AuthContinueButton getAuthContinueButton() {
+    return authContinueButton;
+  }
+
+  public TextField getEmail() {
+    return email;
   }
 }
