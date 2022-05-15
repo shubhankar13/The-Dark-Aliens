@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 
 public class HomeController {
 
-    @FXML
-    public void onProfileButtonClick() {
-        StageManager.setScene("profile-view.fxml", "Profile");
-    }
+  @FXML
+  public void onProfileButtonClick() {
+    StageManager.setScene("profile-view.fxml", "Profile");
+  }
 }

@@ -7,34 +7,38 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #0e1016;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.darkaliens.darkaliens.ProfileController">
-   <padding>
-      <Insets top="50.0" />
-   </padding>
-   <children>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#goBackToHomeScene" style="-fx-background-color: transparent;" text="Go Back" textFill="#77a7ff" />
-      <Pane maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #151922; -fx-background-radius: 75;" />
-      <Label text="Haii there !" textFill="#f8f5f5">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label text="Email" textFill="#f5f3f3">
-         <font>
-            <Font name="System Italic" size="14.0" />
-         </font>
-      </Label>
-      <Button defaultButton="true" maxWidth="250.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" style="-fx-background-color: #4687ff;" text="Log Out" textFill="WHITE">
-         <padding>
-            <Insets bottom="12.0" left="28.0" right="28.0" top="12.0" />
-         </padding>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </Button>
-   </children>
-   <effect>
-      <DropShadow />
-   </effect>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0"
+      style="-fx-background-color: #0e1016;" xmlns="http://javafx.com/javafx/18"
+      fx:controller="com.darkaliens.darkaliens.ProfileController">
+    <padding>
+        <Insets top="50.0"/>
+    </padding>
+    <children>
+        <Button alignment="CENTER" mnemonicParsing="false" onAction="#goBackToHomeScene"
+                style="-fx-background-color: transparent;" text="Go Back" textFill="#77a7ff"/>
+        <Pane maxHeight="150.0" maxWidth="150.0" prefHeight="200.0" prefWidth="200.0"
+              style="-fx-background-color: #151922; -fx-background-radius: 75;"/>
+        <Label text="Haii there !" textFill="#f8f5f5">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Label text="Email" textFill="#f5f3f3">
+            <font>
+                <Font name="System Italic" size="14.0"/>
+            </font>
+        </Label>
+        <Button defaultButton="true" maxWidth="250.0" mnemonicParsing="false" onAction="#onLogOutButtonClick"
+                style="-fx-background-color: #4687ff;" text="Log Out" textFill="WHITE">
+            <padding>
+                <Insets bottom="12.0" left="28.0" right="28.0" top="12.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+        </Button>
+    </children>
+    <effect>
+        <DropShadow/>
+    </effect>
 </VBox>
