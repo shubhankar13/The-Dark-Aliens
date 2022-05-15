@@ -1,19 +1,12 @@
 .authentication-text-field {
-    -fx-text-fill: white;
+  -fx-text-fill: white;
 }
 
 .authentication-text-field:focused {
-    -fx-border-color: #77a7ff !important;
-}
-
-.root-background {
-    -fx-background-image: url("udaan-main-background.jpeg");
-    -fx-background-size: cover;
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
+  -fx-border-color: #77a7ff !important;
 }
 
 .radio-button:selected .radio .dot {
-    -fx-background-color: #0770e3;
-    -fx-background-insets: 0;
+  -fx-background-color: #0770e3;
+  -fx-background-insets: 0;
 }

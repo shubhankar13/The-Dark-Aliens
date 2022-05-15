@@ -1,5 +1,6 @@
 package com.darkaliens.darkaliens;
 
+import com.darkaliens.auth.Firebase;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +17,8 @@ public class MainApplication extends Application {
     Firebase.init();
 
     MainApplication.stage = primaryStage;
-    SignUpController.showScene();
+//    SignUpController.showScene();
 //    LoginController.showScene();
+    HomeController.showScene();
   }
 }
