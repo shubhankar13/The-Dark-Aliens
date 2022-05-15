@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18"
-            fx:controller="com.darkaliens.darkaliens.HomeController">
+            fx:controller="com.darkaliens.darkaliens.Home.HomeController">
     <children>
         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
               prefHeight="764.0" prefWidth="1022.0" spacing="40.0" style="-fx-background-color: wheat;"

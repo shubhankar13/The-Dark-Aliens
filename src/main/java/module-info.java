@@ -18,4 +18,6 @@ module com.darkaliens.darkaliens {
   exports com.darkaliens.darkaliens;
   exports com.darkaliens.auth;
   opens com.darkaliens.auth to javafx.fxml;
+  exports com.darkaliens.darkaliens.Home;
+  opens com.darkaliens.darkaliens.Home to javafx.fxml;
 }
