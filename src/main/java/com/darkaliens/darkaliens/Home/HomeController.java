@@ -1,9 +1,10 @@
 package com.darkaliens.darkaliens.Home;
 
+import com.darkaliens.darkaliens.AddFlight.AddFlightController;
 import com.darkaliens.darkaliens.MainApplication;
+import com.darkaliens.darkaliens.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -30,6 +31,16 @@ public class HomeController {
     Button viewAccountButton = new Button("View account");
     viewAccountButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
     viewAccountButton.setTextFill(Color.web("white"));
+
+
+    Button addAFlightButton = new Button("Add a flight");
+    addAFlightButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
+    addAFlightButton.setTextFill(Color.web("white"));
+    addAFlightButton.setOnAction(event -> {
+      AddFlightController.showScene();
+    });
+
+    headerContainer.getChildren().add(addAFlightButton);
     headerContainer.getChildren().add(viewAccountButton);
     headerContainer.setAlignment(Pos.CENTER_RIGHT);
     root.getChildren().add(headerContainer);
@@ -106,15 +117,7 @@ public class HomeController {
     bodyContainer.setAlignment(Pos.CENTER_LEFT);
     root.getChildren().add(bodyContainer);
 
-    primaryStage.show();
-    primaryStage.setWidth(1200);
-    primaryStage.setMinWidth(1000);
-    primaryStage.setHeight(800);
-    primaryStage.setMinHeight(800);
-    Scene scene = new Scene(root);
-    scene.getStylesheets().add(css);
-    primaryStage.setScene(scene);
-    primaryStage.centerOnScreen();
+    StageManager.newSetScene(root, "Home", css);
   }
 
   private static VBox createDatePicker(String title) {
