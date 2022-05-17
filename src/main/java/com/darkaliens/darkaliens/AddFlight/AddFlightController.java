@@ -17,6 +17,15 @@ public class AddFlightController {
 
     Label title = new Label("Add a new flight");
 
+    Label errorMessage = new Label("All fields are required.");
+
+    errorMessage.setStyle("-fx-background-color: #FFEBE9; -fx-border-color: rgba(255,129,130,0.4); -fx-border-radius: 5px;");
+    errorMessage.setPrefWidth(Double.MAX_VALUE);
+    errorMessage.setPadding(new Insets(16));
+
+    errorMessage.setManaged(false);
+    errorMessage.setVisible(false);
+
     AddFlightSectionTitle departureInformationTitle = new AddFlightSectionTitle("Departure information");
     AddFlightTextField departureAirportCode = new AddFlightTextField("Departure airport code", "BUD");
     AddFlightTextField departureAirportLocation = new AddFlightTextField("Departure location", "Budapest, Hungary");
@@ -57,26 +66,51 @@ public class AddFlightController {
       String premiumEconomyClassPriceValue = premiumEconomyPrice.getText();
       String economyClassPriceValue = economyPrice.getText();
 
-      MongoCollection<Document> collection = Database.getFlightsCollection();
-      Document document = new Document();
-      InsertOneResult result = collection.insertOne(document
-        .append("departure_airport_code", departureAirportCodeValue)
-        .append("departure_airport_location", departureAirportLocationValue)
-        .append("departure_date", departureDatePickerValue)
-        .append("departure_terminal", departureTerminalValue)
-        .append("departure_gate", departureGateValue)
-        .append("arrival_airport_code", arrivalAirportCodeValue)
-        .append("arrival_airport_location", arrivalAirportLocationValue)
-        .append("arrival_date", arrivalDatePickerValue)
-        .append("arrival_terminal", arrivalTerminalValue)
-        .append("arrival_gate", arrivalGateValue)
-        .append("first_class_price", firstClassPriceValue)
-        .append("business_class_price", businessClassPriceValue)
-        .append("premium_economy_price", premiumEconomyClassPriceValue)
-        .append("economy_price", economyClassPriceValue)
-      );
+      if (
+        departureAirportCodeValue.isEmpty()
+          || departureAirportLocationValue.isEmpty()
+          || departureDatePickerValue.isEmpty()
+          || departureTerminalValue.isEmpty()
+          || departureGateValue.isEmpty()
+          || arrivalAirportCodeValue.isEmpty()
+          || arrivalAirportLocationValue.isEmpty()
+          || arrivalDatePickerValue.isEmpty()
+          || arrivalTerminalValue.isEmpty()
+          || arrivalGateValue.isEmpty()
+          || firstClassPriceValue.isEmpty()
+          || businessClassPriceValue.isEmpty()
+          || premiumEconomyClassPriceValue.isEmpty()
+          || economyClassPriceValue.isEmpty()
+      ) {
+        errorMessage.setManaged(true);
+        errorMessage.setVisible(true);
+      } else {
 
-      System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
+        errorMessage.setManaged(false);
+        errorMessage.setVisible(false);
+
+        MongoCollection<Document> collection = Database.getFlightsCollection();
+        Document document = new Document();
+        InsertOneResult result = collection.insertOne(document
+          .append("departure_airport_code", departureAirportCodeValue)
+          .append("departure_airport_location", departureAirportLocationValue)
+          .append("departure_date", departureDatePickerValue)
+          .append("departure_terminal", departureTerminalValue)
+          .append("departure_gate", departureGateValue)
+          .append("arrival_airport_code", arrivalAirportCodeValue)
+          .append("arrival_airport_location", arrivalAirportLocationValue)
+          .append("arrival_date", arrivalDatePickerValue)
+          .append("arrival_terminal", arrivalTerminalValue)
+          .append("arrival_gate", arrivalGateValue)
+          .append("first_class_price", firstClassPriceValue)
+          .append("business_class_price", businessClassPriceValue)
+          .append("premium_economy_price", premiumEconomyClassPriceValue)
+          .append("economy_price", economyClassPriceValue)
+        );
+
+        System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
+      }
+
     });
 
     VBox container = new VBox(
@@ -98,6 +132,7 @@ public class AddFlightController {
       businessClassPrice,
       premiumEconomyPrice,
       economyPrice,
+      errorMessage,
       submitButton
     );
 
