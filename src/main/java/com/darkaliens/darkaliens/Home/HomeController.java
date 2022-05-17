@@ -30,12 +30,10 @@ public class HomeController {
     HBox headerContainer = new HBox();
     Button viewAccountButton = new Button("View account");
     viewAccountButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-    viewAccountButton.setTextFill(Color.web("white"));
 
 
     Button addAFlightButton = new Button("Add a flight");
     addAFlightButton.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
-    addAFlightButton.setTextFill(Color.web("white"));
     addAFlightButton.setOnAction(event -> {
       AddFlightController.showScene();
     });
@@ -65,7 +63,7 @@ public class HomeController {
     VBox searchContainer = new VBox();
     searchContainer.getChildren().add(ticketTypeContainer);
     searchContainer.setPadding(new Insets(20));
-    searchContainer.setStyle("-fx-background-color: #0e1016; -fx-background-radius: 5px");
+    searchContainer.setStyle("-fx-background-radius: 5px");
     searchContainer.setMinHeight(100);
     searchContainer.setSpacing(20);
 

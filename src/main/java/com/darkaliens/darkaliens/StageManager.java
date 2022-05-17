@@ -16,7 +16,6 @@ public class StageManager {
   public static void newSetScene(Parent root, String title, String css) {
     Scene scene = new Scene(root);
     scene.getStylesheets().add(css);
-
     setSceneGeneral(title, scene);
   }
 
