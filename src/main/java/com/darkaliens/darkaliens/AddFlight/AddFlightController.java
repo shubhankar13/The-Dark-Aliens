@@ -1,12 +1,16 @@
 package com.darkaliens.darkaliens.AddFlight;
 
 import com.darkaliens.darkaliens.StageManager;
+import com.darkaliens.mongo.Database;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.result.InsertOneResult;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import org.bson.Document;
 
 public class AddFlightController {
   public static void showScene() {
@@ -36,7 +40,43 @@ public class AddFlightController {
     Button submitButton = new Button("Add flight");
     submitButton.setAlignment(Pos.CENTER);
     submitButton.setOnAction(event -> {
-      System.out.println("Add a new flight to database");
+      String departureAirportCodeValue = departureAirportCode.getText();
+      String departureAirportLocationValue = departureAirportLocation.getText();
+      String departureDatePickerValue = departureDatePicker.getDate();
+      String departureTerminalValue = departureTerminal.getText();
+      String departureGateValue = departureGate.getText();
+
+      String arrivalAirportCodeValue = arrivalAirportCode.getText();
+      String arrivalAirportLocationValue = arrivalAirportLocation.getText();
+      String arrivalDatePickerValue = arrivalDatePicker.getDate();
+      String arrivalTerminalValue = arrivalTerminal.getText();
+      String arrivalGateValue = arrivalGate.getText();
+
+      String firstClassPriceValue = firstClassPrice.getText();
+      String businessClassPriceValue = businessClassPrice.getText();
+      String premiumEconomyClassPriceValue = premiumEconomyPrice.getText();
+      String economyClassPriceValue = economyPrice.getText();
+
+      MongoCollection<Document> collection = Database.getFlightsCollection();
+      Document document = new Document();
+      InsertOneResult result = collection.insertOne(document
+        .append("departure_airport_code", departureAirportCodeValue)
+        .append("departure_airport_location", departureAirportLocationValue)
+        .append("departure_date", departureDatePickerValue)
+        .append("departure_terminal", departureTerminalValue)
+        .append("departure_gate", departureGateValue)
+        .append("arrival_airport_code", arrivalAirportCodeValue)
+        .append("arrival_airport_location", arrivalAirportLocationValue)
+        .append("arrival_date", arrivalDatePickerValue)
+        .append("arrival_terminal", arrivalTerminalValue)
+        .append("arrival_gate", arrivalGateValue)
+        .append("first_class_price", firstClassPriceValue)
+        .append("business_class_price", businessClassPriceValue)
+        .append("premium_economy_price", premiumEconomyClassPriceValue)
+        .append("economy_price", economyClassPriceValue)
+      );
+
+      System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
     });
 
     VBox container = new VBox(
