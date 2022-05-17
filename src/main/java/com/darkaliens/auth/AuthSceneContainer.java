@@ -17,14 +17,19 @@ import java.util.Collection;
 
 public class AuthSceneContainer extends VBox {
 
-  public static final PasswordField passwordField = new AuthPasswordField();
-  public static final AuthContinueButton authContinueButton = new AuthContinueButton();
-  public static final TextField email = new AuthTextField("Email");
-  public static final Label errorMessage = new Label();
+  public static PasswordField passwordField;
+  public static AuthContinueButton authContinueButton;
+  public static TextField email;
+  public static Label errorMessage;
   private static final Stage primaryStage = MainApplication.stage;
-  static VBox containerVBox = new VBox();
+  static VBox containerVBox;
 
   public AuthSceneContainer(String sceneTitle, Collection<Node> others) {
+    errorMessage = new Label();
+    containerVBox = new VBox();
+    passwordField = new AuthPasswordField();
+    authContinueButton = new AuthContinueButton();
+    email = new AuthTextField("Email");
     setAlignment(Pos.CENTER);
 
     containerVBox.setStyle("-fx-background-radius: 5px");
