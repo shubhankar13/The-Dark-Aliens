@@ -1,5 +1,6 @@
 package com.darkaliens.darkaliens.AddFlight;
 
+import com.darkaliens.darkaliens.ComboboxWithTitle;
 import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.StageManager;
 import com.darkaliens.mongo.Database;
@@ -39,16 +40,16 @@ public class AddFlightController {
     String[] arrivalGates = new String[]{"A1", "A2", "B1", "B2"};
 
     AddFlightSectionTitle departureInformationTitle = new AddFlightSectionTitle("Departure information");
-    AddFlightComboBox departureAirportCode = new AddFlightComboBox("Departure airport code", airportCodes);
+    ComboboxWithTitle departureAirportCode = new ComboboxWithTitle("Departure airport code", airportCodes);
     AddFlightDatePicker departureDatePicker = new AddFlightDatePicker("Departure date");
-    AddFlightComboBox departureTerminal = new AddFlightComboBox("Departure terminal", departureTerminals);
-    AddFlightComboBox departureGate = new AddFlightComboBox("Departure gate", departureGates);
+    ComboboxWithTitle departureTerminal = new ComboboxWithTitle("Departure terminal", departureTerminals);
+    ComboboxWithTitle departureGate = new ComboboxWithTitle("Departure gate", departureGates);
 
     AddFlightSectionTitle arrivalInformationTitle = new AddFlightSectionTitle("Arrival information");
-    AddFlightComboBox arrivalAirportCode = new AddFlightComboBox("Arrival airport code", airportCodes);
+    ComboboxWithTitle arrivalAirportCode = new ComboboxWithTitle("Arrival airport code", airportCodes);
     AddFlightDatePicker arrivalDatePicker = new AddFlightDatePicker("Arrival date");
-    AddFlightComboBox arrivalTerminal = new AddFlightComboBox("Arrival terminal", arrivalTerminals);
-    AddFlightComboBox arrivalGate = new AddFlightComboBox("Arrival gate", arrivalGates);
+    ComboboxWithTitle arrivalTerminal = new ComboboxWithTitle("Arrival terminal", arrivalTerminals);
+    ComboboxWithTitle arrivalGate = new ComboboxWithTitle("Arrival gate", arrivalGates);
 
     AddFlightSectionTitle pricesInformationTitle = new AddFlightSectionTitle("Prices (USD)");
     AddFlightTextField firstClassPrice = new AddFlightTextField("First class", "4000");

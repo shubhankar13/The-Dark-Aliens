@@ -1,6 +1,7 @@
 package com.darkaliens.darkaliens.Home;
 
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
+import com.darkaliens.darkaliens.ComboboxWithTitle;
 import com.darkaliens.darkaliens.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +28,6 @@ public class HomeController {
 
     HBox headerContainer = new HBox();
     Button viewAccountButton = new Button("View account");
-
     Button addAFlightButton = new Button("Add a flight");
     addAFlightButton.setOnAction(event -> {
       AddFlightController.showScene();
@@ -49,23 +49,19 @@ public class HomeController {
     searchContainer.setSpacing(20);
 
     HBox searchFieldsContainer = new HBox();
-    VBox fromField = createLocationTextField("From");
-    VBox toField = createLocationTextField("To");
+    String[] airportCodes = new String[]{"DEB", "BUD", "VIE", "FRA", "BER"};
+    ComboboxWithTitle fromField = new ComboboxWithTitle("From", airportCodes);
+    ComboboxWithTitle toField = new ComboboxWithTitle("To", airportCodes);
     VBox departDatePicker = createDatePicker();
 
-    Label cabinClassLabel = new Label("Cabin class");
-    ObservableList<String> options = FXCollections.observableArrayList("First class", "Business class", "Premium economy", "Economy");
-    ComboBox<String> classComboBox = new ComboBox<>(options);
-    classComboBox.getSelectionModel().select(2);
-
-    VBox classContainer = new VBox(cabinClassLabel, classComboBox);
-    classComboBox.setPrefHeight(minHeight);
-    classContainer.setSpacing(10);
+    String[] cabinClasses = new String[]{"First class", "Business class", "Premium economy", "Economy"};
+    ComboboxWithTitle classComboBox = new ComboboxWithTitle("Cabin class", cabinClasses);
+    classComboBox.comboBox.getSelectionModel().select(2);
 
     searchFieldsContainer.getChildren().add(fromField);
     searchFieldsContainer.getChildren().add(toField);
     searchFieldsContainer.getChildren().add(departDatePicker);
-    searchFieldsContainer.getChildren().add(classContainer);
+    searchFieldsContainer.getChildren().add(classComboBox);
 
     Button searchButton = new Button("Search flights");
     searchButton.setPadding(new Insets(10,20,10,20));
@@ -104,21 +100,6 @@ public class HomeController {
     datePicker.setMinHeight(minHeight);
     datePicker.setStyle("-fx-border-radius: 0px; -fx-background-radius: 0px");
     datePicker.setMaxWidth(Double.MAX_VALUE);
-
-    return vBox;
-  }
-
-  private static VBox createLocationTextField(String title) {
-    TextField textField = new TextField();
-    Label label = new Label(title);
-    VBox vBox = new VBox(label, textField);
-    HBox.setHgrow(vBox, Priority.ALWAYS);
-
-    vBox.setSpacing(10);
-
-    textField.setPromptText("Country, city or airport");
-    textField.setMinHeight(minHeight);
-    textField.setStyle("-fx-border-radius: 0px; -fx-background-radius: 0px");
 
     return vBox;
   }
