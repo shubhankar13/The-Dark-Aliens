@@ -25,8 +25,8 @@ public class MainApplication extends Application {
   public void start(Stage primaryStage) {
     MainApplication.stage = primaryStage;
 //    SignUpController.showScene();
-    LoginController.showScene();
+//    LoginController.showScene();
 //    HomeController.showScene();
-//    AddFlightController.showScene();
+    AddFlightController.showScene();
   }
 }
