@@ -26,8 +26,7 @@ public class AddFlightController {
     errorMessage.setVisible(false);
 
     String[] airportCodes = new String[]{"DEB", "BUD", "VIE", "FRA", "BER"};
-    String[] airportLocations = new String[]{"Debrecen, Hungary", "Budapest, Hungary", "Vienna, Austra", "Frankfurt, Germany", "Berlin, Germany"};
-    
+
     String[] departureTerminals = new String[]{"1", "2", "3"};
     String[] departureGates = new String[]{"A1", "A2", "B1", "B2"};
 
@@ -36,14 +35,12 @@ public class AddFlightController {
 
     AddFlightSectionTitle departureInformationTitle = new AddFlightSectionTitle("Departure information");
     AddFlightComboBox departureAirportCode = new AddFlightComboBox("Departure airport code", airportCodes);
-    AddFlightComboBox departureAirportLocation = new AddFlightComboBox("Departure airport location", airportLocations);
     AddFlightDatePicker departureDatePicker = new AddFlightDatePicker("Departure date");
     AddFlightComboBox departureTerminal = new AddFlightComboBox("Departure terminal", departureTerminals);
     AddFlightComboBox departureGate = new AddFlightComboBox("Departure gate", departureGates);
 
     AddFlightSectionTitle arrivalInformationTitle = new AddFlightSectionTitle("Arrival information");
     AddFlightComboBox arrivalAirportCode = new AddFlightComboBox("Arrival airport code", airportCodes);
-    AddFlightComboBox arrivalAirportLocation = new AddFlightComboBox("Arrival airport location", airportLocations);
     AddFlightDatePicker arrivalDatePicker = new AddFlightDatePicker("Arrival date");
     AddFlightComboBox arrivalTerminal = new AddFlightComboBox("Arrival terminal", arrivalTerminals);
     AddFlightComboBox arrivalGate = new AddFlightComboBox("Arrival gate", arrivalGates);
@@ -58,13 +55,11 @@ public class AddFlightController {
     submitButton.setAlignment(Pos.CENTER);
     submitButton.setOnAction(event -> {
       String departureAirportCodeValue = departureAirportCode.getValue();
-      String departureAirportLocationValue = departureAirportLocation.getValue();
       String departureDatePickerValue = departureDatePicker.getDate();
       String departureTerminalValue = departureTerminal.getValue();
       String departureGateValue = departureGate.getValue();
 
       String arrivalAirportCodeValue = arrivalAirportCode.getValue();
-      String arrivalAirportLocationValue = arrivalAirportLocation.getValue();
       String arrivalDatePickerValue = arrivalDatePicker.getDate();
       String arrivalTerminalValue = arrivalTerminal.getValue();
       String arrivalGateValue = arrivalGate.getValue();
@@ -78,12 +73,10 @@ public class AddFlightController {
 
       if (
         departureAirportCodeValue == null
-          || departureAirportLocationValue == null
           || departureDatePickerValue.isEmpty()
           || departureTerminalValue == null
           || departureGateValue == null
           || arrivalAirportCodeValue == null
-          || arrivalAirportLocationValue == null
           || arrivalDatePickerValue.isEmpty()
           || arrivalTerminalValue == null
           || arrivalGateValue == null
@@ -103,12 +96,10 @@ public class AddFlightController {
         Document document = new Document();
         InsertOneResult result = collection.insertOne(document
           .append("departure_airport_code", departureAirportCodeValue)
-          .append("departure_airport_location", departureAirportLocationValue)
           .append("departure_date", departureDatePickerValue)
           .append("departure_terminal", departureTerminalValue)
           .append("departure_gate", departureGateValue)
           .append("arrival_airport_code", arrivalAirportCodeValue)
-          .append("arrival_airport_location", arrivalAirportLocationValue)
           .append("arrival_date", arrivalDatePickerValue)
           .append("arrival_terminal", arrivalTerminalValue)
           .append("arrival_gate", arrivalGateValue)
@@ -127,13 +118,11 @@ public class AddFlightController {
       title,
       departureInformationTitle,
       departureAirportCode,
-      departureAirportLocation,
       departureDatePicker,
       departureTerminal,
       departureGate,
       arrivalInformationTitle,
       arrivalAirportCode,
-      arrivalAirportLocation,
       arrivalDatePicker,
       arrivalTerminal,
       arrivalGate,
