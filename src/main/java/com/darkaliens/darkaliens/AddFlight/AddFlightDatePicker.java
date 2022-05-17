@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 
 public class AddFlightDatePicker extends VBox {
-  public static DatePicker datePicker;
+  public DatePicker datePicker;
   public static Label label;
 
   public AddFlightDatePicker(String labelTitle) {

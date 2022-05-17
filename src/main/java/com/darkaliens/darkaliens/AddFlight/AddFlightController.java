@@ -1,5 +1,6 @@
 package com.darkaliens.darkaliens.AddFlight;
 
+import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.StageManager;
 import com.darkaliens.mongo.Database;
 import com.mongodb.client.MongoCollection;
@@ -7,10 +8,14 @@ import com.mongodb.client.result.InsertOneResult;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import org.bson.Document;
+
+import java.time.LocalDate;
+import java.util.Optional;
 
 public class AddFlightController {
   public static void showScene() {
@@ -110,6 +115,32 @@ public class AddFlightController {
         );
 
         System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
+
+        AddFlightAlert addFlightAlert = new AddFlightAlert();
+        Optional<ButtonType> alertResult = addFlightAlert.showAndWait();
+
+        if (alertResult.isPresent()) {
+          if (alertResult.get() == addFlightAlert.buttonTypeOne) {
+            HomeController.showScene();
+          } else {
+            LocalDate now = LocalDate.now();
+
+            departureAirportCode.comboBox.getSelectionModel().clearSelection();
+            departureGate.comboBox.getSelectionModel().clearSelection();
+            departureTerminal.comboBox.getSelectionModel().clearSelection();
+            departureDatePicker.datePicker.setValue(now);
+
+            arrivalAirportCode.comboBox.getSelectionModel().clearSelection();
+            arrivalGate.comboBox.getSelectionModel().clearSelection();
+            arrivalTerminal.comboBox.getSelectionModel().clearSelection();
+            arrivalDatePicker.datePicker.setValue(now);
+
+            firstClassPrice.textField.setText("");
+            businessClassPrice.textField.setText("");
+            premiumEconomyPrice.textField.setText("");
+            economyPrice.textField.setText("");
+          }
+        }
       }
 
     });
