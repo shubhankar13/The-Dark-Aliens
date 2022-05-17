@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -27,9 +26,8 @@ public class AuthSceneContainer extends VBox {
 
   public AuthSceneContainer(String sceneTitle, Collection<Node> others) {
     setAlignment(Pos.CENTER);
-    setStyle("-fx-background-color: #0e1016");
 
-    containerVBox.setStyle("-fx-background-color: #151922; -fx-background-radius: 5px");
+    containerVBox.setStyle("-fx-background-radius: 5px");
     containerVBox.setSpacing(10);
     containerVBox.setMaxWidth(350);
     containerVBox.setAlignment(Pos.CENTER);
@@ -37,18 +35,16 @@ public class AuthSceneContainer extends VBox {
     getChildren().add(containerVBox);
 
     Label projectName = new Label("UDAAN");
-    projectName.setTextFill(Color.web("#7f8183"));
     projectName.setPadding(new Insets(0, 0, 20, 0));
     containerVBox.getChildren().add(projectName);
 
     errorMessage.setMaxWidth(Double.MAX_VALUE);
     toggleErrorMessage(false);
     errorMessage.setPadding(new Insets(10));
-    errorMessage.setStyle("-fx-background-color: #a18282; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(246,79,100,.4);");
+    errorMessage.setStyle("-fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(246,79,100,.4);");
     containerVBox.getChildren().add(errorMessage);
 
     Label sceneTitleLabel = new Label(sceneTitle);
-    sceneTitleLabel.setTextFill(Color.web("white"));
     sceneTitleLabel.setFont(Font.font("", FontWeight.BOLD, 20));
     containerVBox.getChildren().add(sceneTitleLabel);
 

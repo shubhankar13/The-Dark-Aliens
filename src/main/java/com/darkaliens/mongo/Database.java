@@ -3,6 +3,7 @@ package com.darkaliens.mongo;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.BsonDocument;
 import org.bson.BsonInt64;
@@ -24,5 +25,15 @@ public class Database {
     } catch (MongoException me) {
       System.err.println("An error occurred while attempting to run a command: " + me);
     }
+  }
+
+  public static MongoCollection<Document> getFlightsCollection () {
+    return getCollection("flights");
+  }
+
+  public static MongoCollection<Document> getCollection (String collectionName) {
+    MongoDatabase database = Database.mongoClient.getDatabase(databaseName);
+
+    return database.getCollection(collectionName);
   }
 }
