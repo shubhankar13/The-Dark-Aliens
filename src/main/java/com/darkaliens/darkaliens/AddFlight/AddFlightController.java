@@ -112,10 +112,10 @@ public class AddFlightController {
           .append("arrival_date", arrivalDatePickerValue)
           .append("arrival_terminal", arrivalTerminalValue)
           .append("arrival_gate", arrivalGateValue)
-          .append("first_class_price", firstClassPriceValue)
-          .append("business_class_price", businessClassPriceValue)
-          .append("premium_economy_price", premiumEconomyClassPriceValue)
-          .append("economy_price", economyClassPriceValue)
+          .append("first_class_price", Integer.valueOf(firstClassPriceValue))
+          .append("business_class_price", Integer.valueOf(businessClassPriceValue))
+          .append("premium_economy_price", Integer.valueOf(premiumEconomyClassPriceValue))
+          .append("economy_price", Integer.valueOf(economyClassPriceValue))
         );
 
         System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
