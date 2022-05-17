@@ -22,23 +22,31 @@ public class AddFlightController {
     errorMessage.setStyle("-fx-background-color: #FFEBE9; -fx-border-color: rgba(255,129,130,0.4); -fx-border-radius: 5px;");
     errorMessage.setPrefWidth(Double.MAX_VALUE);
     errorMessage.setPadding(new Insets(16));
-
     errorMessage.setManaged(false);
     errorMessage.setVisible(false);
 
+    String[] airportCodes = new String[]{"DEB", "BUD", "VIE", "FRA", "BER"};
+    String[] airportLocations = new String[]{"Debrecen, Hungary", "Budapest, Hungary", "Vienna, Austra", "Frankfurt, Germany", "Berlin, Germany"};
+    
+    String[] departureTerminals = new String[]{"1", "2", "3"};
+    String[] departureGates = new String[]{"A1", "A2", "B1", "B2"};
+
+    String[] arrivalTerminals = new String[]{"1", "2", "3"};
+    String[] arrivalGates = new String[]{"A1", "A2", "B1", "B2"};
+
     AddFlightSectionTitle departureInformationTitle = new AddFlightSectionTitle("Departure information");
-    AddFlightTextField departureAirportCode = new AddFlightTextField("Departure airport code", "BUD");
-    AddFlightTextField departureAirportLocation = new AddFlightTextField("Departure location", "Budapest, Hungary");
+    AddFlightComboBox departureAirportCode = new AddFlightComboBox("Departure airport code", airportCodes);
+    AddFlightComboBox departureAirportLocation = new AddFlightComboBox("Departure airport location", airportLocations);
     AddFlightDatePicker departureDatePicker = new AddFlightDatePicker("Departure date");
-    AddFlightTextField departureTerminal = new AddFlightTextField("Departure terminal", "Terminal 1");
-    AddFlightTextField departureGate = new AddFlightTextField("Departure gate", "A50");
+    AddFlightComboBox departureTerminal = new AddFlightComboBox("Departure terminal", departureTerminals);
+    AddFlightComboBox departureGate = new AddFlightComboBox("Departure gate", departureGates);
 
     AddFlightSectionTitle arrivalInformationTitle = new AddFlightSectionTitle("Arrival information");
-    AddFlightTextField arrivalAirportCode = new AddFlightTextField("Arrival airport code", "VIE");
-    AddFlightTextField arrivalAirportLocation = new AddFlightTextField("Arrival location", "Vienna, Austria");
+    AddFlightComboBox arrivalAirportCode = new AddFlightComboBox("Arrival airport code", airportCodes);
+    AddFlightComboBox arrivalAirportLocation = new AddFlightComboBox("Arrival airport location", airportLocations);
     AddFlightDatePicker arrivalDatePicker = new AddFlightDatePicker("Arrival date");
-    AddFlightTextField arrivalTerminal = new AddFlightTextField("Arrival terminal", "Terminal 3");
-    AddFlightTextField arrivalGate = new AddFlightTextField("Arrival gate", "A2");
+    AddFlightComboBox arrivalTerminal = new AddFlightComboBox("Arrival terminal", arrivalTerminals);
+    AddFlightComboBox arrivalGate = new AddFlightComboBox("Arrival gate", arrivalGates);
 
     AddFlightSectionTitle pricesInformationTitle = new AddFlightSectionTitle("Prices (USD)");
     AddFlightTextField firstClassPrice = new AddFlightTextField("First class", "4000");
@@ -49,34 +57,36 @@ public class AddFlightController {
     Button submitButton = new Button("Add flight");
     submitButton.setAlignment(Pos.CENTER);
     submitButton.setOnAction(event -> {
-      String departureAirportCodeValue = departureAirportCode.getText();
-      String departureAirportLocationValue = departureAirportLocation.getText();
+      String departureAirportCodeValue = departureAirportCode.getValue();
+      String departureAirportLocationValue = departureAirportLocation.getValue();
       String departureDatePickerValue = departureDatePicker.getDate();
-      String departureTerminalValue = departureTerminal.getText();
-      String departureGateValue = departureGate.getText();
+      String departureTerminalValue = departureTerminal.getValue();
+      String departureGateValue = departureGate.getValue();
 
-      String arrivalAirportCodeValue = arrivalAirportCode.getText();
-      String arrivalAirportLocationValue = arrivalAirportLocation.getText();
+      String arrivalAirportCodeValue = arrivalAirportCode.getValue();
+      String arrivalAirportLocationValue = arrivalAirportLocation.getValue();
       String arrivalDatePickerValue = arrivalDatePicker.getDate();
-      String arrivalTerminalValue = arrivalTerminal.getText();
-      String arrivalGateValue = arrivalGate.getText();
+      String arrivalTerminalValue = arrivalTerminal.getValue();
+      String arrivalGateValue = arrivalGate.getValue();
 
       String firstClassPriceValue = firstClassPrice.getText();
       String businessClassPriceValue = businessClassPrice.getText();
       String premiumEconomyClassPriceValue = premiumEconomyPrice.getText();
       String economyClassPriceValue = economyPrice.getText();
 
+      System.out.println(departureAirportCodeValue);
+
       if (
-        departureAirportCodeValue.isEmpty()
-          || departureAirportLocationValue.isEmpty()
+        departureAirportCodeValue == null
+          || departureAirportLocationValue == null
           || departureDatePickerValue.isEmpty()
-          || departureTerminalValue.isEmpty()
-          || departureGateValue.isEmpty()
-          || arrivalAirportCodeValue.isEmpty()
-          || arrivalAirportLocationValue.isEmpty()
+          || departureTerminalValue == null
+          || departureGateValue == null
+          || arrivalAirportCodeValue == null
+          || arrivalAirportLocationValue == null
           || arrivalDatePickerValue.isEmpty()
-          || arrivalTerminalValue.isEmpty()
-          || arrivalGateValue.isEmpty()
+          || arrivalTerminalValue == null
+          || arrivalGateValue == null
           || firstClassPriceValue.isEmpty()
           || businessClassPriceValue.isEmpty()
           || premiumEconomyClassPriceValue.isEmpty()
