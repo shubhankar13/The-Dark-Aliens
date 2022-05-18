@@ -3,18 +3,26 @@ package com.darkaliens.darkaliens.Home;
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
 import com.darkaliens.darkaliens.ComboboxWithTitle;
 import com.darkaliens.darkaliens.StageManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.darkaliens.mongo.Database;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Projections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.time.LocalDate;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
 
 public class HomeController {
   private static final Integer minHeight = 40;
@@ -40,7 +48,7 @@ public class HomeController {
     root.getChildren().add(headerContainer);
 
     VBox bodyContainer = new VBox();
-    VBox.setMargin(bodyContainer, new Insets(0,100, 0, 100));
+    VBox.setMargin(bodyContainer, new Insets(0, 100, 0, 100));
     VBox.setVgrow(bodyContainer, Priority.ALWAYS);
 
     VBox searchContainer = new VBox();
@@ -64,9 +72,20 @@ public class HomeController {
     searchFieldsContainer.getChildren().add(classComboBox);
 
     Button searchButton = new Button("Search flights");
-    searchButton.setPadding(new Insets(10,20,10,20));
+    searchButton.setPadding(new Insets(10, 20, 10, 20));
     searchButton.setTextFill(Color.web("white"));
     searchButton.setStyle("-fx-background-color: #00a698;");
+    searchButton.setOnAction(event -> {
+
+      Bson projectionFields = Projections.fields(Projections.include("departure_airport_code", "departure_gate"), Projections.excludeId());
+
+      try (MongoCursor<Document> cursor = Database.getFlightsCollection().find(and(eq("departure_airport_code", "DEB")))
+        .projection(projectionFields).iterator()) {
+        while (cursor.hasNext()) {
+          System.out.println(cursor.next().toJson());
+        }
+      }
+    });
     HBox searchButtonContainer = new HBox(searchButton);
     searchButtonContainer.setAlignment(Pos.CENTER_RIGHT);
 
