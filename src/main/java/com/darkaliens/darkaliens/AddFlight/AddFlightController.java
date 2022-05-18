@@ -181,7 +181,6 @@ public class AddFlightController {
 
     ScrollPane root = new ScrollPane();
     root.setContent(scrollContentContainer);
-    root.getStyleClass().add("scroll-pane");
     scrollContentContainer.prefWidthProperty().bind(root.widthProperty());
 
     StageManager.newSetScene(root, "Add a new flight");

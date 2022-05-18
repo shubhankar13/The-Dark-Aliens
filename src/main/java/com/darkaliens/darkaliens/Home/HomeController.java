@@ -2,12 +2,13 @@ package com.darkaliens.darkaliens.Home;
 
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
 import com.darkaliens.darkaliens.ComboboxWithTitle;
+import com.darkaliens.darkaliens.FlightSearchResults.FlightSearchResultsController;
 import com.darkaliens.darkaliens.StageManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -69,6 +70,9 @@ public class HomeController {
     searchButton.setStyle("-fx-background-color: #00a698;");
     HBox searchButtonContainer = new HBox(searchButton);
     searchButtonContainer.setAlignment(Pos.CENTER_RIGHT);
+    searchButton.setOnAction(event -> {
+      FlightSearchResultsController.showScene();
+    });
 
     searchContainer.getChildren().add(searchFieldsContainer);
     searchContainer.getChildren().add(searchButtonContainer);
