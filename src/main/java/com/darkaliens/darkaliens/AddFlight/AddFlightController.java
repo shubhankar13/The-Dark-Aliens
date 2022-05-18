@@ -1,6 +1,7 @@
 package com.darkaliens.darkaliens.AddFlight;
 
 import com.darkaliens.darkaliens.ComboboxWithTitle;
+import com.darkaliens.darkaliens.ErrorMessage;
 import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.StageManager;
 import com.darkaliens.mongo.Database;
@@ -16,20 +17,36 @@ import javafx.scene.layout.VBox;
 import org.bson.Document;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class AddFlightController {
+
+  public static Map<String, String> cabinClasses = new HashMap<>() {{
+    put("first_class", "First class");
+    put("business_class", "Business class");
+    put("premium_economy", "Premium economy");
+    put("economy", "Economy");
+  }};
+
+  public static Map<String, String> inverseCabinClasses = new HashMap<>() {{
+    put("First class", "first_class");
+    put("Business class", "business_class");
+    put("Premium economy", "premium_economy");
+    put("Economy", "economy");
+  }};
+
+
+  public static Map<String, String> createSingletonMap() {
+    return Collections.singletonMap("username1", "password1");
+  }
+
   public static void showScene() {
 
     Label title = new Label("Add a new flight");
-
-    Label errorMessage = new Label("All fields are required.");
-
-    errorMessage.setStyle("-fx-background-color: #FFEBE9; -fx-border-color: rgba(255,129,130,0.4); -fx-border-radius: 5px;");
-    errorMessage.setPrefWidth(Double.MAX_VALUE);
-    errorMessage.setPadding(new Insets(16));
-    errorMessage.setManaged(false);
-    errorMessage.setVisible(false);
+    ErrorMessage errorMessage = new ErrorMessage();
 
     String[] airportCodes = new String[]{"DEB", "BUD", "VIE", "FRA", "BER"};
 
@@ -52,10 +69,10 @@ public class AddFlightController {
     ComboboxWithTitle arrivalGate = new ComboboxWithTitle("Arrival gate", arrivalGates);
 
     AddFlightSectionTitle pricesInformationTitle = new AddFlightSectionTitle("Prices (USD)");
-    AddFlightTextField firstClassPrice = new AddFlightTextField("First class", "4000");
-    AddFlightTextField businessClassPrice = new AddFlightTextField("Business Class", "2000");
-    AddFlightTextField premiumEconomyPrice = new AddFlightTextField("Premium Economy", "1500");
-    AddFlightTextField economyPrice = new AddFlightTextField("Economy", "700");
+    AddFlightTextField firstClassPrice = new AddFlightTextField(cabinClasses.get("first_class"), "4000");
+    AddFlightTextField businessClassPrice = new AddFlightTextField(cabinClasses.get("business_class"), "2000");
+    AddFlightTextField premiumEconomyPrice = new AddFlightTextField(cabinClasses.get("premium_economy"), "1500");
+    AddFlightTextField economyPrice = new AddFlightTextField(cabinClasses.get("economy"), "700");
 
     Button submitButton = new Button("Add flight");
     submitButton.setAlignment(Pos.CENTER);
@@ -101,18 +118,18 @@ public class AddFlightController {
         MongoCollection<Document> collection = Database.getFlightsCollection();
         Document document = new Document();
         InsertOneResult result = collection.insertOne(document
-          .append("departure_airport_code", departureAirportCodeValue)
-          .append("departure_date", departureDatePickerValue)
-          .append("departure_terminal", departureTerminalValue)
-          .append("departure_gate", departureGateValue)
-          .append("arrival_airport_code", arrivalAirportCodeValue)
-          .append("arrival_date", arrivalDatePickerValue)
-          .append("arrival_terminal", arrivalTerminalValue)
-          .append("arrival_gate", arrivalGateValue)
-          .append("first_class_price", Integer.valueOf(firstClassPriceValue))
-          .append("business_class_price", Integer.valueOf(businessClassPriceValue))
-          .append("premium_economy_price", Integer.valueOf(premiumEconomyClassPriceValue))
-          .append("economy_price", Integer.valueOf(economyClassPriceValue))
+                                                        .append("departure_airport_code", departureAirportCodeValue)
+                                                        .append("departure_date", departureDatePickerValue)
+                                                        .append("departure_terminal", departureTerminalValue)
+                                                        .append("departure_gate", departureGateValue)
+                                                        .append("arrival_airport_code", arrivalAirportCodeValue)
+                                                        .append("arrival_date", arrivalDatePickerValue)
+                                                        .append("arrival_terminal", arrivalTerminalValue)
+                                                        .append("arrival_gate", arrivalGateValue)
+                                                        .append("first_class_price", Integer.valueOf(firstClassPriceValue))
+                                                        .append("business_class_price", Integer.valueOf(businessClassPriceValue))
+                                                        .append("premium_economy_price", Integer.valueOf(premiumEconomyClassPriceValue))
+                                                        .append("economy_price", Integer.valueOf(economyClassPriceValue))
         );
 
         System.out.println("Success! Inserted flight with id: " + result.getInsertedId());
