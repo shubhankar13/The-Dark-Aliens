@@ -1,7 +1,5 @@
-package com.darkaliens.darkaliens;
+package com.darkaliens.auth;
 
-import com.darkaliens.auth.AuthSceneContainer;
-import com.darkaliens.auth.Firebase;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -29,10 +27,16 @@ public class LoginController {
     signUpContainer.getChildren().add(signUpButton);
     signUpContainer.setSpacing(10);
 
+    Button resetPasswordButton = new Button("Reset your password");
+    resetPasswordButton.setOnAction(event -> {
+      ResetPassword.showScene();
+    });
+
     Collection<Node> list = new ArrayList<>();
     list.add(signUpContainer);
 
     authSceneContainer = new AuthSceneContainer("Log in", list);
+    authSceneContainer.containerVBox.getChildren().add(6, resetPasswordButton);
     authSceneContainer.getAuthContinueButton().setOnAction(LoginController::login);
   }
 

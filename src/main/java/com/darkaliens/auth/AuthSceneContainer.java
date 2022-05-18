@@ -23,7 +23,7 @@ public class AuthSceneContainer extends VBox {
   public static TextField email;
   public static ErrorMessage errorMessage;
   private static final Stage primaryStage = MainApplication.stage;
-  static VBox containerVBox;
+  public VBox containerVBox;
 
   public AuthSceneContainer(String sceneTitle, Collection<Node> others) {
     errorMessage = new ErrorMessage();
