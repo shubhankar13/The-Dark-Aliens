@@ -1,8 +1,5 @@
-package com.darkaliens.darkaliens;
+package com.darkaliens.auth;
 
-import com.darkaliens.auth.AuthSceneContainer;
-import com.darkaliens.auth.AuthTextField;
-import com.darkaliens.auth.Firebase;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

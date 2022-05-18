@@ -80,7 +80,8 @@ public class Firebase {
       throw new RuntimeException(e);
     }
 
-    return "UNKNOWN";
+    return "SUCCESS";
+
   }
 
   public static String login(String email, String password) {
@@ -115,7 +116,38 @@ public class Firebase {
       throw new RuntimeException(e);
     }
 
-    return "UNKNOWN";
+    return "SUCCESS";
+  }
+
+  public static String resetPassword(String email) {
+    if (email.isEmpty()) {
+      return "INCOMPLETE_FORM";
+    }
+
+    HttpPost post = new HttpPost("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=" + apiKey);
+
+    setPostParameters(email, post);
+
+    try (CloseableHttpClient httpClient = HttpClients.createDefault();
+         CloseableHttpResponse response = httpClient.execute(post)) {
+      String jsonString = EntityUtils.toString(response.getEntity());
+      JSONObject jsonObject = new JSONObject(jsonString);
+
+      boolean hasError = jsonObject.has(errorKeyName);
+
+      if (hasError) {
+        String errorMessage = (String) jsonObject.getJSONObject(errorKeyName).get("message");
+        if (errorMessage.contains("EMAIL_NOT_FOUND")) {
+          return "EMAIL_NOT_FOUND";
+        }
+
+        return errorMessage;
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    return "SUCCESS";
   }
 
   private static void setPostParameters(String email, String password, HttpPost post) {
@@ -130,5 +162,19 @@ public class Firebase {
       throw new RuntimeException(e);
     }
   }
+
+  private static void setPostParameters(String email, HttpPost post) {
+    List<NameValuePair> urlParameters = new ArrayList<>();
+
+    urlParameters.add(new BasicNameValuePair("email", email));
+    urlParameters.add(new BasicNameValuePair("requestType", "PASSWORD_RESET"));
+
+    try {
+      post.setEntity(new UrlEncodedFormEntity(urlParameters));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
 
 }
