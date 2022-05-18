@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ComboboxWithTitle extends VBox {

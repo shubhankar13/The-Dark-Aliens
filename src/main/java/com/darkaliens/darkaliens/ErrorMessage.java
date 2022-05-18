@@ -12,5 +12,6 @@ public class ErrorMessage extends Label {
     setPadding(new Insets(16));
     setManaged(false);
     setVisible(false);
+    setWrapText(true);
   }
 }

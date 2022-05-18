@@ -16,7 +16,7 @@ public class Database {
   public static final MongoClient mongoClient = MongoClients.create(uri);
 
   public static void connect() {
-    MongoDatabase database = mongoClient.getDatabase("admin");
+    MongoDatabase database = mongoClient.getDatabase(databaseName);
 
     try {
       Bson command = new BsonDocument("ping", new BsonInt64(1));

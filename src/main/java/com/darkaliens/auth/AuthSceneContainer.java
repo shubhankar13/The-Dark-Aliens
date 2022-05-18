@@ -1,5 +1,6 @@
 package com.darkaliens.auth;
 
+import com.darkaliens.darkaliens.ErrorMessage;
 import com.darkaliens.darkaliens.MainApplication;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,12 +21,12 @@ public class AuthSceneContainer extends VBox {
   public static PasswordField passwordField;
   public static AuthContinueButton authContinueButton;
   public static TextField email;
-  public static Label errorMessage;
+  public static ErrorMessage errorMessage;
   private static final Stage primaryStage = MainApplication.stage;
   static VBox containerVBox;
 
   public AuthSceneContainer(String sceneTitle, Collection<Node> others) {
-    errorMessage = new Label();
+    errorMessage = new ErrorMessage();
     containerVBox = new VBox();
     passwordField = new AuthPasswordField();
     authContinueButton = new AuthContinueButton();
@@ -41,12 +42,10 @@ public class AuthSceneContainer extends VBox {
 
     Label projectName = new Label("UDAAN");
     projectName.setPadding(new Insets(0, 0, 20, 0));
+    projectName.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
     containerVBox.getChildren().add(projectName);
 
-    errorMessage.setMaxWidth(Double.MAX_VALUE);
     toggleErrorMessage(false);
-    errorMessage.setPadding(new Insets(10));
-    errorMessage.setStyle("-fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: rgba(246,79,100,.4);");
     containerVBox.getChildren().add(errorMessage);
 
     Label sceneTitleLabel = new Label(sceneTitle);

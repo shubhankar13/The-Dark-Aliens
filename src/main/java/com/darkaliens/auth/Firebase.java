@@ -20,6 +20,7 @@ import java.util.List;
 
 public class Firebase {
   private static final String apiKey = "AIzaSyCj_z3Ubhf6ckuANEVW1RTk6GH6ysMzSyw";
+  private static final String errorKeyName = "error";
 
   public static void init() {
     String currentPath = new File(".").getAbsolutePath();
@@ -32,7 +33,7 @@ public class Firebase {
       throw new RuntimeException(e);
     }
 
-    FirebaseOptions options = null;
+    FirebaseOptions options;
 
     try {
       options = new FirebaseOptions.Builder()
@@ -59,7 +60,6 @@ public class Firebase {
 
       String jsonString = EntityUtils.toString(response.getEntity());
       JSONObject jsonObject = new JSONObject(jsonString);
-      String errorKeyName = "error";
       boolean hasError = jsonObject.has(errorKeyName);
 
       if (hasError) {
@@ -79,21 +79,43 @@ public class Firebase {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return firstName;
+
+    return "UNKNOWN";
   }
 
-  public static void login(String email, String password) {
+  public static String login(String email, String password) {
+    if (email.isEmpty() || password.isEmpty()) {
+      return "INCOMPLETE_FORM";
+    }
+
     HttpPost post = new HttpPost("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + apiKey);
 
     setPostParameters(email, password, post);
 
     try (CloseableHttpClient httpClient = HttpClients.createDefault();
          CloseableHttpResponse response = httpClient.execute(post)) {
+      String jsonString = EntityUtils.toString(response.getEntity());
+      JSONObject jsonObject = new JSONObject(jsonString);
 
-      System.out.println(EntityUtils.toString(response.getEntity()));
+      boolean hasError = jsonObject.has(errorKeyName);
+
+      if (hasError) {
+        String errorMessage = (String) jsonObject.getJSONObject(errorKeyName).get("message");
+        if (errorMessage.contains("INVALID_PASSWORD")) {
+          return "INVALID_PASSWORD";
+        }
+        if (errorMessage.contains("TOO_MANY_ATTEMPTS_TRY_LATER")) {
+          return "TOO_MANY_ATTEMPTS_TRY_LATER";
+        }
+
+        return errorMessage;
+      }
+      System.out.println(jsonObject);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
+    return "UNKNOWN";
   }
 
   private static void setPostParameters(String email, String password, HttpPost post) {
