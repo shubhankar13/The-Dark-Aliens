@@ -1,21 +1,21 @@
 package com.darkaliens.darkaliens.Home;
 
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
+import com.darkaliens.darkaliens.AddFlight.AddFlightDatePicker;
 import com.darkaliens.darkaliens.ComboboxWithTitle;
+import com.darkaliens.darkaliens.ErrorMessage;
+import com.darkaliens.darkaliens.FlightSearchResults.FlightSearchData;
 import com.darkaliens.darkaliens.FlightSearchResults.FlightSearchResultsController;
 import com.darkaliens.darkaliens.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.time.LocalDate;
 
 public class HomeController {
   private static final Integer minHeight = 40;
@@ -41,7 +41,7 @@ public class HomeController {
     root.getChildren().add(headerContainer);
 
     VBox bodyContainer = new VBox();
-    VBox.setMargin(bodyContainer, new Insets(0,100, 0, 100));
+    VBox.setMargin(bodyContainer, new Insets(0, 100, 0, 100));
     VBox.setVgrow(bodyContainer, Priority.ALWAYS);
 
     VBox searchContainer = new VBox();
@@ -53,7 +53,9 @@ public class HomeController {
     String[] airportCodes = new String[]{"DEB", "BUD", "VIE", "FRA", "BER"};
     ComboboxWithTitle fromField = new ComboboxWithTitle("From", airportCodes);
     ComboboxWithTitle toField = new ComboboxWithTitle("To", airportCodes);
-    VBox departDatePicker = createDatePicker();
+    AddFlightDatePicker departDatePicker = new AddFlightDatePicker("Depart");
+
+    HBox.setHgrow(departDatePicker, Priority.ALWAYS);
 
     String[] cabinClasses = new String[]{"First class", "Business class", "Premium economy", "Economy"};
     ComboboxWithTitle classComboBox = new ComboboxWithTitle("Cabin class", cabinClasses);
@@ -64,14 +66,28 @@ public class HomeController {
     searchFieldsContainer.getChildren().add(departDatePicker);
     searchFieldsContainer.getChildren().add(classComboBox);
 
+    ErrorMessage errorMessage = new ErrorMessage();
+
     Button searchButton = new Button("Search flights");
-    searchButton.setPadding(new Insets(10,20,10,20));
+    searchButton.setPadding(new Insets(10, 20, 10, 20));
     searchButton.setTextFill(Color.web("white"));
     searchButton.setStyle("-fx-background-color: #00a698;");
     HBox searchButtonContainer = new HBox(searchButton);
     searchButtonContainer.setAlignment(Pos.CENTER_RIGHT);
     searchButton.setOnAction(event -> {
-      FlightSearchResultsController.showScene();
+
+      if (toField.getValue() == null || fromField.getValue() == null) {
+        errorMessage.setManaged(true);
+        errorMessage.setVisible(true);
+      } else {
+        FlightSearchData flightSearchData = FlightSearchData.getInstance();
+
+        flightSearchData.setFrom(fromField.getValue());
+        flightSearchData.setTo(toField.getValue());
+        flightSearchData.setDate(departDatePicker.getDate());
+        flightSearchData.setCabinClass(classComboBox.getValue());
+        FlightSearchResultsController.showScene();
+      }
     });
 
     searchContainer.getChildren().add(searchFieldsContainer);
@@ -79,8 +95,10 @@ public class HomeController {
     Label largeTitle = new Label("One more step towards your dream destination");
     largeTitle.setFont(Font.font(Font.getDefault().getFamily(), 30));
 
+
     bodyContainer.setSpacing(minHeight);
     bodyContainer.getChildren().add(largeTitle);
+    bodyContainer.getChildren().add(errorMessage);
     bodyContainer.getChildren().add(searchContainer);
     bodyContainer.setPadding(new Insets(20));
     bodyContainer.setMaxWidth(800);
@@ -88,23 +106,5 @@ public class HomeController {
     root.getChildren().add(bodyContainer);
 
     StageManager.newSetScene(root, "Home");
-  }
-
-  private static VBox createDatePicker() {
-    DatePicker datePicker = new DatePicker();
-    Label label = new Label("Depart");
-    VBox vBox = new VBox(label, datePicker);
-    HBox.setHgrow(vBox, Priority.ALWAYS);
-    VBox.setVgrow(datePicker, Priority.ALWAYS);
-
-    vBox.setSpacing(10);
-
-    datePicker.setValue(LocalDate.now());
-    datePicker.setEditable(false);
-    datePicker.setMinHeight(minHeight);
-    datePicker.setStyle("-fx-border-radius: 0px; -fx-background-radius: 0px");
-    datePicker.setMaxWidth(Double.MAX_VALUE);
-
-    return vBox;
   }
 }
