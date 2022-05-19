@@ -9,6 +9,7 @@ import com.darkaliens.darkaliens.ErrorMessage;
 import com.darkaliens.darkaliens.FlightSearchResults.FlightSearchData;
 import com.darkaliens.darkaliens.FlightSearchResults.FlightSearchResultsController;
 import com.darkaliens.darkaliens.StageManager;
+import com.darkaliens.darkaliens.ViewAccount;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,15 +25,16 @@ public class HomeController {
 
   public static void showScene() {
     User user = User.getInstance();
-
     VBox root = new VBox();
-    root.setId("root-background");
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(20));
 
     HBox headerContainer = new HBox();
     Button viewAccountButton = new Button("View account");
+    viewAccountButton.setOnAction(event -> {
+      ViewAccount.showScene();
+    });
     Button loginButton = new Button("Log in");
     Button addAFlightButton = new Button("Add a flight");
     addAFlightButton.setOnAction(event -> {
