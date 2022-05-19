@@ -24,7 +24,7 @@ public class MainApplication extends Application {
     Database.connect();
     User user = User.getInstance();
 
-    SystemProperties e = null;
+    SystemProperties e;
 
     try {
       FileInputStream fileIn = new FileInputStream("/tmp/uid.ser");
@@ -33,7 +33,10 @@ public class MainApplication extends Application {
       in.close();
       fileIn.close();
 
-      user.getUser(e.uid);
+      if (e.uid != null && !e.uid.isEmpty()) {
+        user.getUser(e.uid);
+      }
+
 
     } catch (IOException i) {
 //      i.printStackTrace();
@@ -51,8 +54,9 @@ public class MainApplication extends Application {
     MainApplication.stage = primaryStage;
 //    SignUpController.showScene();
 //    LoginController.showScene();
-    HomeController.showScene();
+//    HomeController.showScene();
 //    AddFlightController.showScene();
 //    FlightSearchResultsController.showScene();
+    ViewAccount.showScene();
   }
 }

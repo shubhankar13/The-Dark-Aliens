@@ -87,6 +87,15 @@ public class User {
     return instance;
   }
 
+  public void resetAccountData() {
+    this.setFirstName("");
+    this.setLastName("");
+    this.setUid("");
+    this.setEmail("");
+    this.setToken("");
+    this.setRefreshToken("");
+  }
+
   public Boolean getUser(String uid) {
     try {
       MongoCollection<Document> collection = Database.getUsersCollection();
