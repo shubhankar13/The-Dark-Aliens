@@ -27,7 +27,14 @@ public class ViewAccount {
     name.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
     Label email = new Label(user.getEmail());
 
-    VBox root = new VBox(name, email, signOutButton);
+    BackButton backButton = new BackButton();
+
+    backButton.setOnAction(event -> {
+      HomeController.showScene();
+    });
+
+    VBox root = new VBox(backButton, name, email, signOutButton);
+
     root.setSpacing(10);
     root.setAlignment(Pos.CENTER);
     root.setPadding(new Insets(20));

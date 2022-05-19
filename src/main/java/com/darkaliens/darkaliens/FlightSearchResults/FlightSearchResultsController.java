@@ -3,6 +3,7 @@ package com.darkaliens.darkaliens.FlightSearchResults;
 import com.darkaliens.User;
 import com.darkaliens.auth.LoginController;
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
+import com.darkaliens.darkaliens.BackButton;
 import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.StageManager;
 import com.darkaliens.mongo.Database;
@@ -33,6 +34,11 @@ public class FlightSearchResultsController {
   static FlightSearchData flightSearchData = FlightSearchData.getInstance();
 
   public static void showScene() {
+    BackButton backButton = new BackButton();
+
+    backButton.setOnAction(event -> {
+      HomeController.showScene();
+    });
 
     Label title = new Label("Flight search results");
 
@@ -41,7 +47,7 @@ public class FlightSearchResultsController {
     title.setStyle("-fx-font-size: 25px");
     VBox.setMargin(title, new Insets(0, 0, 20, 0));
 
-    VBox container = new VBox(title);
+    VBox container = new VBox(backButton, title);
 
     String cabinClassKey = AddFlightController.inverseCabinClasses.get(flightSearchData.cabinClass) + "_price";
 
