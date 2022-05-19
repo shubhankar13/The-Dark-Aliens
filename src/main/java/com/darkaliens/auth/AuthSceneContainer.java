@@ -54,8 +54,6 @@ public class AuthSceneContainer extends VBox {
 
     containerVBox.getChildren().addAll(others);
 
-    email.setText("woyongegbara@yahoo.com");
-
     containerVBox.getChildren().add(email);
     containerVBox.getChildren().add(passwordField);
 

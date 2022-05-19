@@ -215,12 +215,6 @@ public class Firebase {
     return "SUCCESS";
   }
 
-  public static String signOut() {
-    HomeController.showScene();
-    return "SUCCESS";
-  }
-
-
   private static void setPostParameters(String email, String password, HttpPost post) {
     List<NameValuePair> urlParameters = new ArrayList<>();
 

@@ -1,14 +1,17 @@
 package com.darkaliens.darkaliens.FlightSearchResults;
 
+import com.darkaliens.User;
+import com.darkaliens.auth.LoginController;
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
+import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.StageManager;
 import com.darkaliens.mongo.Database;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.InsertOneResult;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -17,10 +20,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.*;
 
@@ -60,8 +65,8 @@ public class FlightSearchResultsController {
         Label departureTerminal = new Label("Terminal " + document.get("departure_terminal"));
         Label departureDate = new Label((String) document.get("departure_date"));
         Label arrivalAirportCode = new Label((String) document.get("arrival_airport_code"));
-        Label arrivalGate = new Label((String) document.get("arrival_gate"));
-        Label arrivalTerminal = new Label((String) document.get("arrival_terminal"));
+        Label arrivalGate = new Label("Gate " + document.get("arrival_gate"));
+        Label arrivalTerminal = new Label("Terminal " + document.get("arrival_terminal"));
         Label arrivalDate = new Label((String) document.get("arrival_date"));
 
         Text departureTime = new Text("9:50");
@@ -79,7 +84,7 @@ public class FlightSearchResultsController {
         departureTime.setStyle("-fx-font-weight: bold;");
 
         HBox departureInfoContainer = new HBox(departureTime, departureLocation, departureAirportCode, departureTerminal, departureGate);
-        HBox arrivalInfoContainer = new HBox(arrivalTime, arrivalLocation, arrivalAirportCode);
+        HBox arrivalInfoContainer = new HBox(arrivalTime, arrivalLocation, arrivalAirportCode, arrivalTerminal, arrivalGate);
         departureInfoContainer.setSpacing(5);
         arrivalInfoContainer.setSpacing(5);
 
@@ -89,6 +94,43 @@ public class FlightSearchResultsController {
 
         Label price = new Label(formattedString);
         Button buyButton = new Button("Buy ticket");
+        User user = User.getInstance();
+
+        buyButton.setOnAction(event -> {
+          if (user.uid.isEmpty()) {
+            ButtonType buttonTypeOne = new ButtonType("Log in");
+            ButtonType buttonTypeTwo = new ButtonType("Cancel");
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("You're not logged in.");
+            alert.setTitle("You must be logged in to buy a ticket.");
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+            Optional<ButtonType> alertResult = alert.showAndWait();
+
+            if (alertResult.isPresent()) {
+              if (alertResult.get() == buttonTypeOne) {
+                LoginController.showScene();
+              }
+            }
+
+          } else {
+            MongoCollection<Document> collection = Database.getTicketPurchasesCollection();
+            Document ticketPurchaseDocument = new Document();
+            InsertOneResult result = collection.insertOne(ticketPurchaseDocument
+                                                            .append("ticket_id", document.get("_id"))
+                                                            .append("uid", new ObjectId(user._id)));
+
+            if (result.wasAcknowledged()) {
+              HomeController.showScene();
+              Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+              alert.setTitle("You ticket was booked!");
+              alert.setHeaderText("Thank you for your purchase!");
+              alert.showAndWait();
+            }
+          }
+        });
+
         VBox rightResultContainer = new VBox(price, buyButton);
         rightResultContainer.setPrefWidth(150);
         rightResultContainer.setAlignment(Pos.CENTER);
