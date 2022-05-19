@@ -1,5 +1,6 @@
 package com.darkaliens.darkaliens.AddFlight;
 
+import com.darkaliens.darkaliens.BackButton;
 import com.darkaliens.darkaliens.ComboboxWithTitle;
 import com.darkaliens.darkaliens.ErrorMessage;
 import com.darkaliens.darkaliens.Home.HomeController;
@@ -44,6 +45,14 @@ public class AddFlightController {
   }
 
   public static void showScene() {
+
+
+    BackButton backButton = new BackButton();
+
+    backButton.setOnAction(event -> {
+      HomeController.showScene();
+    });
+
 
     Label title = new Label("Add a new flight");
     ErrorMessage errorMessage = new ErrorMessage();
@@ -164,6 +173,7 @@ public class AddFlightController {
     });
 
     VBox container = new VBox(
+      backButton,
       title,
       departureInformationTitle,
       departureAirportCode,

@@ -1,5 +1,7 @@
 package com.darkaliens.auth;
 
+import com.darkaliens.darkaliens.BackButton;
+import com.darkaliens.darkaliens.Home.HomeController;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 
@@ -10,10 +12,17 @@ public class ResetPassword {
   private static AuthSceneContainer authSceneContainer;
 
   public static void showScene() {
+
+    BackButton backButton = new BackButton();
+
+    backButton.setOnAction(event -> {
+      LoginController.showScene();
+    });
+
     Collection<Node> list = new ArrayList<>();
-    authSceneContainer = new AuthSceneContainer("Log in", list);
-    authSceneContainer.containerVBox.getChildren().remove(2);
-    authSceneContainer.containerVBox.getChildren().remove(3);
+    authSceneContainer = new AuthSceneContainer("Reset your password", list);
+    authSceneContainer.containerVBox.getChildren().add(0, backButton);
+    authSceneContainer.containerVBox.getChildren().remove(5);
     authSceneContainer.getAuthContinueButton().setOnAction(LoginController::login);
     authSceneContainer.getAuthContinueButton().setOnAction(event -> {
       resetPassword();
