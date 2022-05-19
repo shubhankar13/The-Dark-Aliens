@@ -19,8 +19,6 @@ public class SignUpController {
   private static AuthSceneContainer authSceneContainer;
 
   public static void showScene() {
-    firstNameField.setText("Woyong");
-    lastNameField.setText("Egbara");
     HBox loginContainer = new HBox();
     Label haveAnAccount = new Label("Have an account?");
     Button loginButton = new Button("Login");

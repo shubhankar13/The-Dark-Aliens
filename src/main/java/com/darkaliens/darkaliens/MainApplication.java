@@ -2,8 +2,6 @@ package com.darkaliens.darkaliens;
 
 import com.darkaliens.User;
 import com.darkaliens.auth.Firebase;
-import com.darkaliens.auth.LoginController;
-import com.darkaliens.auth.SignUpController;
 import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.mongo.Database;
 import javafx.application.Application;
@@ -54,9 +52,9 @@ public class MainApplication extends Application {
     MainApplication.stage = primaryStage;
 //    SignUpController.showScene();
 //    LoginController.showScene();
-//    HomeController.showScene();
+    HomeController.showScene();
 //    AddFlightController.showScene();
 //    FlightSearchResultsController.showScene();
-    ViewAccount.showScene();
+//    ViewAccount.showScene();
   }
 }

@@ -1,12 +1,10 @@
 package com.darkaliens;
 
-import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.SystemProperties;
 import com.darkaliens.mongo.Database;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 import java.io.FileOutputStream;
@@ -109,6 +107,7 @@ public class User {
       this.setEmail((String) userDoc.get("email"));
       this.setToken((String) userDoc.get("token"));
       this.setRefreshToken((String) userDoc.get("refresh_token"));
+      this.set_id(userDoc.get("_id").toString());
 
       SystemProperties e = new SystemProperties();
       e.uid = uid;

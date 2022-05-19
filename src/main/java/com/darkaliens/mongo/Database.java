@@ -35,6 +35,10 @@ public class Database {
     return getCollection("users");
   }
 
+  public static MongoCollection<Document> getTicketPurchasesCollection () {
+    return getCollection("ticket_purchases");
+  }
+
   public static MongoCollection<Document> getCollection (String collectionName) {
     MongoDatabase database = Database.mongoClient.getDatabase(databaseName);
 
