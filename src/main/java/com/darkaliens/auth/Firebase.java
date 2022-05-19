@@ -1,9 +1,17 @@
 package com.darkaliens.auth;
 
+import com.darkaliens.User;
+import com.darkaliens.darkaliens.Home.HomeController;
 import com.darkaliens.darkaliens.SystemProperties;
+import com.darkaliens.mongo.Database;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.InsertOneResult;
+import javafx.scene.control.Alert;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -12,6 +20,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -71,11 +81,37 @@ public class Firebase {
       }
 
       SystemProperties systemProperties = new SystemProperties();
+
       String token = jsonObject.getString("idToken");
       String uid = jsonObject.getString("localId");
       String refreshToken = jsonObject.getString("refreshToken");
 
-      systemProperties.setProperties(token, uid, refreshToken);
+      MongoCollection<Document> collection = Database.getUsersCollection();
+      Document document = new Document();
+      InsertOneResult result = collection.insertOne(document
+                                                      .append("first_name", firstName)
+                                                      .append("last_name", lastName)
+                                                      .append("email", email)
+                                                      .append("token", token)
+                                                      .append("refresh_token", refreshToken)
+                                                      .append("uid", uid)
+      );
+
+      if (result.wasAcknowledged()) {
+        User user = User.getInstance();
+        Boolean success = user.getUser(uid);
+
+        if (success) {
+          HomeController.showScene();
+          System.out.println("Sign up inserted id.");
+          System.out.println(result.getInsertedId());
+
+          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+          alert.setTitle("You're signed up!");
+          alert.showAndWait();
+        }
+      }
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -111,7 +147,36 @@ public class Firebase {
 
         return errorMessage;
       }
-      System.out.println(jsonObject);
+
+      String token = jsonObject.getString("idToken");
+      String uid = jsonObject.getString("localId");
+      String refreshToken = jsonObject.getString("refreshToken");
+
+      Document query = new Document().append("uid", uid);
+      Bson updates = Updates.combine(
+        Updates.set("refresh_token", refreshToken),
+        Updates.set("token", token)
+      );
+
+      System.out.println(uid);
+
+      try {
+        MongoCollection<Document> collection = Database.getUsersCollection();
+        collection.updateOne(query, updates);
+        System.setProperty("uid", uid);
+
+        User user = User.getInstance();
+
+        Boolean success = user.getUser(uid);
+
+        if (success) {
+          HomeController.showScene();
+        }
+
+      } catch (MongoException me) {
+        System.err.println("Unable to update due to an error: " + me);
+      }
+
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -155,6 +220,7 @@ public class Firebase {
 
     urlParameters.add(new BasicNameValuePair("email", email));
     urlParameters.add(new BasicNameValuePair("password", password));
+    urlParameters.add(new BasicNameValuePair("returnSecureToken", "true"));
 
     try {
       post.setEntity(new UrlEncodedFormEntity(urlParameters));

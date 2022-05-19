@@ -55,9 +55,9 @@ public class SignUpController {
 
     switch (signUpResponse) {
       case "INCOMPLETE_FORM" -> authSceneContainer.showError("All fields are required.");
-      case "WEAK_PASSWORD" -> authSceneContainer.showError("Your password is missing or is too weak.", passwordField);
-      case "INVALID_EMAIL" -> authSceneContainer.showError("Your email is missing or is incorrect.", emailField);
-      case "EMAIL_EXISTS" -> authSceneContainer.showError("The email provided already exists.", emailField);
+      case "WEAK_PASSWORD" -> authSceneContainer.showError("Your password is missing or is too weak.");
+      case "INVALID_EMAIL" -> authSceneContainer.showError("Your email is missing or is incorrect.");
+      case "EMAIL_EXISTS" -> authSceneContainer.showError("The email provided already exists.");
     }
   }
 }

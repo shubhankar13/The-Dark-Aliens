@@ -1,5 +1,7 @@
 package com.darkaliens.darkaliens.Home;
 
+import com.darkaliens.User;
+import com.darkaliens.auth.LoginController;
 import com.darkaliens.darkaliens.AddFlight.AddFlightController;
 import com.darkaliens.darkaliens.AddFlight.AddFlightDatePicker;
 import com.darkaliens.darkaliens.ComboboxWithTitle;
@@ -21,6 +23,8 @@ public class HomeController {
   private static final Integer minHeight = 40;
 
   public static void showScene() {
+    User user = User.getInstance();
+
     VBox root = new VBox();
     root.setId("root-background");
     root.setSpacing(10);
@@ -29,6 +33,7 @@ public class HomeController {
 
     HBox headerContainer = new HBox();
     Button viewAccountButton = new Button("View account");
+    Button loginButton = new Button("Log in");
     Button addAFlightButton = new Button("Add a flight");
     addAFlightButton.setOnAction(event -> {
       AddFlightController.showScene();
@@ -36,7 +41,14 @@ public class HomeController {
 
     headerContainer.setSpacing(10);
     headerContainer.getChildren().add(addAFlightButton);
-    headerContainer.getChildren().add(viewAccountButton);
+    if (user.getUid().isEmpty()) {
+      loginButton.setOnAction(event -> {
+        LoginController.showScene();
+      });
+      headerContainer.getChildren().add(loginButton);
+    } else {
+      headerContainer.getChildren().add(viewAccountButton);
+    }
     headerContainer.setAlignment(Pos.CENTER_RIGHT);
     root.getChildren().add(headerContainer);
 
@@ -92,9 +104,9 @@ public class HomeController {
 
     searchContainer.getChildren().add(searchFieldsContainer);
     searchContainer.getChildren().add(searchButtonContainer);
-    Label largeTitle = new Label("One more step towards your dream destination");
-    largeTitle.setFont(Font.font(Font.getDefault().getFamily(), 30));
-
+    Label largeTitle = new Label( (user.firstName.isBlank() ? "" : "Hey, " + user.firstName + "! ")+ "One more step towards your dream destination");
+    largeTitle.setFont(Font.font(Font.getDefault().getFamily(), 25));
+    largeTitle.setWrapText(true);
 
     bodyContainer.setSpacing(minHeight);
     bodyContainer.getChildren().add(largeTitle);
