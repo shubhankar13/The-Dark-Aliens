@@ -35,6 +35,10 @@ public class Database {
     return getCollection("users");
   }
 
+  public static MongoCollection<Document> getTestCollection() {
+    return getCollection("test");
+  }
+
   public static MongoCollection<Document> getTicketPurchasesCollection () {
     return getCollection("ticket_purchases");
   }
